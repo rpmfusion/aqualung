@@ -1,4 +1,6 @@
-%global         svn_rev  1309
+#https://github.com/jeremyevans/aqualung/commit/05dfcb75ddb1b9f413b80b3d42a7ca96a8ef3906
+%global         commit0 05dfcb75ddb1b9f413b80b3d42a7ca96a8ef3906
+%global         shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global         nonfree  0
 %global         free     1
 
@@ -15,17 +17,13 @@
 %endif
 
 Name:           aqualung
-Version:        0.9
-Release:        0.8.svn%{svn_rev}%{?dist}
+Version:        1.0
+Release:        0.2.rc1git%{shortcommit0}%{?dist}
 Summary:        Music Player for GNU/Linux
-
-Group:          Applications/Multimedia
 License:        GPLv2+
-URL:            http://aqualung.factorial.hu/
-# run ./aqualung-snapshot.sh to get this
-Source0:        %{name}-export-r%{svn_rev}.tar.bz2
+URL:            http://aqualung.jeremyevans.net/
+Source0:        https://github.com/jeremyevans/aqualung/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:        %{name}.desktop
-Source10:       %{name}-snapshot.sh
 
 # autogen.sh
 BuildRequires:  autoconf automake pkgconfig gettext-devel
@@ -70,7 +68,7 @@ well as sound files in just about any audio format and has the feature of
 inserting no gaps between adjacent tracks.
 
 %prep
-%setup -q -n %{name}-export-r%{svn_rev}
+%setup -qn %{name}-%{commit0}
 
 %build
 ./autogen.sh
@@ -132,8 +130,17 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/man/man1/%{name}.*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
+%{_docdir}/%{name}
 
 %changelog
+* Fri Jul 01 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.0-0.2.rc1git05dfcb7
+- Switched from svn to git
+- Update to 1.0-0.2.rc1git05dfcb7
+- Added %%{_docdir}/%%{name}
+
+* Fri Aug 28 2015 Martin Gansser <martinkg@fedoraproject.org> - 1.0-0.1.svn1311
+- Update to SVN r1311
+
 * Mon Mar 02 2015 Martin Gansser <martinkg@fedoraproject.org> - 0.9-0.8.svn1309
 - dropped aqualung-fsf-fix.patch
 
@@ -154,16 +161,16 @@ update-desktop-database &> /dev/null || :
 - corrected license tag
 
 * Tue Feb 2 2010 Akio Idehara <zbe64533 at gmail.com> 0.9-0.5.svn1115
-- Disable mac support. This is mac's the license issue.
+- Disable mac support, this is mac's the license issue
 
 * Mon Feb 1 2010 Akio Idehara <zbe64533 at gmail.com> 0.9-0.4.svn1115
-- Add post/postun.
+- Add post/postun
 
 * Mon Feb 1 2010 Akio Idehara <zbe64533 at gmail.com> 0.9-0.3.svn1115
-- Update to SVN r1115.
+- Update to SVN r1115
 
 * Sun Jan 31 2010 Akio Idehara <zbe64533 at gmail.com> 0.9-0.2.svn1109
-- Change Socket test routine.
+- Change Socket test routine
 
 * Sat Jan 23 2010 Akio Idehara <zbe64533 at gmail.com> 0.9-0.1.svn1109
 - Initial RPM release
