@@ -1,5 +1,5 @@
-#https://github.com/jeremyevans/aqualung/commit/05dfcb75ddb1b9f413b80b3d42a7ca96a8ef3906
-%global         commit0 05dfcb75ddb1b9f413b80b3d42a7ca96a8ef3906
+#https://github.com/jeremyevans/aqualung/commit/72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
+%global         commit0 72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
 %global         shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global         nonfree  0
 %global         free     1
@@ -18,7 +18,7 @@
 
 Name:           aqualung
 Version:        1.0
-Release:        0.2.rc1git%{shortcommit0}%{?dist}
+Release:        0.6.rc1git%{shortcommit0}%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
@@ -133,6 +133,18 @@ update-desktop-database &> /dev/null || :
 %{_docdir}/%{name}
 
 %changelog
+* Mon Jan 02 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.0-0.6.rc1git72c1ab1
+- Update to 1.0-0.6.rc1git72c1ab1
+
+* Thu Nov 17 2016 Adrian Reber <adrian@lisas.de> - 1.0-0.5.rc1git05dfcb7
+- Rebuilt for libcdio-0.94
+
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.0-0.4.rc1git05dfcb7
+- Rebuilt for ffmpeg-3.1.1
+
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.0-0.3.rc1git05dfcb7
+- Rebuilt for ffmpeg-3.1.1
+
 * Fri Jul 01 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.0-0.2.rc1git05dfcb7
 - Switched from svn to git
 - Update to 1.0-0.2.rc1git05dfcb7
