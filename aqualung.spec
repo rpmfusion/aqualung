@@ -114,13 +114,6 @@ install -D -m 644 -p src/img/icon_48.png \
 %find_lang %{name}
 
 
-%post
-update-desktop-database &> /dev/null || :
-
-%postun
-update-desktop-database &> /dev/null || :
-
-
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS ChangeLog README
