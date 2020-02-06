@@ -1,3 +1,4 @@
+%define _legacy_common_support 1
 #https://github.com/jeremyevans/aqualung/commit/72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
 %global         commit0 72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
 %global         shortcommit0 %(c=%{commit0}; echo ${c:0:7})
