@@ -19,7 +19,7 @@
 
 Name:           aqualung
 Version:        1.0
-Release:        0.17.rc1git%{shortcommit0}%{?dist}
+Release:        0.18.rc1git%{shortcommit0}%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
@@ -127,6 +127,9 @@ install -D -m 644 -p src/img/icon_48.png \
 %{_docdir}/%{name}
 
 %changelog
+* Sat Feb 22 2020 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.0-0.18.rc1git72c1ab1
+- Rebuild for ffmpeg-4.3 git
+
 * Tue Feb 04 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.0-0.17.rc1git72c1ab1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
