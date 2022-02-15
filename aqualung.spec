@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 #https://github.com/jeremyevans/aqualung/commit/72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
-%global         commit0 72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
-%global         shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#%%global         commit0 72c1ab19fc8cd3294d5d0a7fd676099cd26d72db
+#%%global         shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 %global         nonfree  0
 %global         free     1
 
@@ -18,13 +18,17 @@
 %endif
 
 Name:           aqualung
-Version:        1.0
-Release:        0.26.rc1git%{shortcommit0}%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
-Source0:        https://github.com/jeremyevans/aqualung/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:        https://github.com/jeremyevans/aqualung/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
+Patch1: %name-%version-ifp.patch
+Patch2: %name-%version-var-collision.patch
+Patch3: aqualung-ALT-new_mac.patch
+Patch4: aqualung-ALT-C11.patch
 
 # autogen.sh
 BuildRequires:  autoconf automake pkgconfig gettext-devel
@@ -49,7 +53,7 @@ BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(libmodplug)
 BuildRequires:  libmpcdec-devel
 %{?with_mac:BuildRequires:  pkgconfig(mac)}
-%{?with_lavc:BuildRequires:  ffmpeg-devel}
+%{?with_lavc:BuildRequires:  compat-ffmpeg4-devel}
 %{?with_lame:BuildRequires:  lame-devel}
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(lrdf)
@@ -69,9 +73,10 @@ well as sound files in just about any audio format and has the feature of
 inserting no gaps between adjacent tracks.
 
 %prep
-%setup -qn %{name}-%{commit0}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
+export PKG_CONFIG_PATH=/usr/lib64/compat-ffmpeg4/pkgconfig
 ./autogen.sh
 %configure \
     --without-sndio \
@@ -101,10 +106,10 @@ inserting no gaps between adjacent tracks.
 # Fix lib64 path
 sed -i 's@/usr/lib/@%{_libdir}/@g' src/plugin.c
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="%{__install} -p -c"
+%make_install
 
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
@@ -127,6 +132,9 @@ install -D -m 644 -p src/img/icon_48.png \
 %{_docdir}/%{name}
 
 %changelog
+* Tue Feb 15 2022 Sérgio Basto <sergio@serjux.com> - 1.1-1
+- Update aqualung to 1.1, patches copied from altlinux and use compat-ffmpeg4
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.0-0.26.rc1git72c1ab1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

@@ -1,0 +1,16 @@
+diff --git a/src/common.h b/src/common.h
+index ff00b4d..9ab50d0 100644
+--- a/src/common.h
++++ b/src/common.h
+@@ -30,11 +30,7 @@
+ 
+ /* When built with a C11 compiler, CHAR_ARRAY_SIZE will cause an error if the
+    argument is not actually a char[] array. */
+-#if __STDC_VERSION__ >= 201112L
+-#define CHAR_ARRAY_SIZE(array) _Generic(&(array), char (*)[]: sizeof(array))
+-#else
+ #define CHAR_ARRAY_SIZE(array) sizeof(array)
+-#endif
+ 
+ /* Since Aqualung uses fixed-size C strings in many places, provide wrappers
+    for bounded string operations that use CHAR_ARRAY_SIZE to ensure it's an
