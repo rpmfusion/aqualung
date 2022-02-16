@@ -53,7 +53,11 @@ BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(libmodplug)
 BuildRequires:  libmpcdec-devel
 %{?with_mac:BuildRequires:  pkgconfig(mac)}
+%if 0%{?fedora} >= 36
 %{?with_lavc:BuildRequires:  compat-ffmpeg4-devel}
+%else
+%{?with_lavc:BuildRequires:  ffmpeg-devel}
+%endif
 %{?with_lame:BuildRequires:  lame-devel}
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(lrdf)
@@ -76,7 +80,10 @@ inserting no gaps between adjacent tracks.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
+%if 0%{?fedora} >= 36
 export PKG_CONFIG_PATH=%{_libdir}/compat-ffmpeg4/pkgconfig
+%endif
+
 ./autogen.sh
 %configure \
     --without-sndio \
@@ -133,7 +140,7 @@ install -D -m 644 -p src/img/icon_48.png \
 
 %changelog
 * Wed Feb 16 2022 Sérgio Basto <sergio@serjux.com> - 1.1-2
-- Fix 32bit builds
+- Fix 32bit builds and builds on Fedora < 36
 
 * Tue Feb 15 2022 Sérgio Basto <sergio@serjux.com> - 1.1-1
 - Update aqualung to 1.1, patches copied from altlinux and use compat-ffmpeg4
