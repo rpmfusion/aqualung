@@ -19,7 +19,7 @@
 
 Name:           aqualung
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
@@ -76,7 +76,7 @@ inserting no gaps between adjacent tracks.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-export PKG_CONFIG_PATH=/usr/lib64/compat-ffmpeg4/pkgconfig
+export PKG_CONFIG_PATH=%{_libdir}/compat-ffmpeg4/pkgconfig
 ./autogen.sh
 %configure \
     --without-sndio \
@@ -132,6 +132,9 @@ install -D -m 644 -p src/img/icon_48.png \
 %{_docdir}/%{name}
 
 %changelog
+* Wed Feb 16 2022 Sérgio Basto <sergio@serjux.com> - 1.1-2
+- Fix 32bit builds
+
 * Tue Feb 15 2022 Sérgio Basto <sergio@serjux.com> - 1.1-1
 - Update aqualung to 1.1, patches copied from altlinux and use compat-ffmpeg4
 
