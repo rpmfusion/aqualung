@@ -19,7 +19,7 @@
 
 Name:           aqualung
 Version:        1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
@@ -139,6 +139,9 @@ install -D -m 644 -p src/img/icon_48.png \
 %{_docdir}/%{name}
 
 %changelog
+* Sun Mar 26 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1-5
+- rebuilt
+
 * Wed Feb 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1-4
 - Rebuild for new flac
 
