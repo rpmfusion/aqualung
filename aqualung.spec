@@ -18,17 +18,15 @@
 %endif
 
 Name:           aqualung
-Version:        1.1
-Release:        5%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPLv2+
 URL:            http://aqualung.jeremyevans.net/
 Source0:        https://github.com/jeremyevans/aqualung/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
-Patch1: %name-%version-ifp.patch
-Patch2: %name-%version-var-collision.patch
-Patch3: aqualung-ALT-new_mac.patch
-Patch4: aqualung-ALT-C11.patch
+Patch0: aqualung-ALT-new_mac.patch
+Patch1: aqualung-ALT-C11.patch
 
 # autogen.sh
 BuildRequires:  autoconf automake pkgconfig gettext-devel
@@ -53,11 +51,7 @@ BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(libmodplug)
 BuildRequires:  libmpcdec-devel
 %{?with_mac:BuildRequires:  pkgconfig(mac)}
-%if 0%{?fedora} >= 36
-%{?with_lavc:BuildRequires:  compat-ffmpeg4-devel}
-%else
 %{?with_lavc:BuildRequires:  ffmpeg-devel}
-%endif
 %{?with_lame:BuildRequires:  lame-devel}
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(lrdf)
@@ -78,13 +72,9 @@ inserting no gaps between adjacent tracks.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+./autogen.sh
 
 %build
-%if 0%{?fedora} >= 36
-export PKG_CONFIG_PATH=%{_libdir}/compat-ffmpeg4/pkgconfig
-%endif
-
-./autogen.sh
 %configure \
     --without-sndio \
     --with-oss \
@@ -129,16 +119,18 @@ install -D -m 644 -p src/img/icon_48.png \
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog
 %{_bindir}/%{name}
-%dir %{_datadir}/%{name}/
-%{_datadir}/%{name}/*
-%{_datadir}/man/man1/%{name}.*
+%{_datadir}/%{name}/
+%{_mandir}/man1/%{name}.*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%{_docdir}/%{name}
+%{_docdir}/%{name}/*
 
 %changelog
+* Sun Jun 11 2023 Leigh Scott <leigh123linux@gmail.com> - 1.2-1
+- Update aqualung to 1.2
+
 * Sun Mar 26 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1-5
 - rebuilt
 
